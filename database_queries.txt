@@ -1,0 +1,113 @@
+Project-
+CREATE TABLE Guest (
+  guest_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  address VARCHAR(255),
+  phone VARCHAR(20),
+  email VARCHAR(100),
+  age INT,
+  gender VARCHAR(10),
+  membership VARCHAR(50)
+);
+
+CREATE TABLE Rooms (
+  room_id INT AUTO_INCREMENT PRIMARY KEY,
+  room_type VARCHAR(50),
+  price DECIMAL(10,2),
+  status VARCHAR(20)
+);
+
+CREATE TABLE Staff (
+  staff_id INT AUTO_INCREMENT PRIMARY KEY,
+  staff_name VARCHAR(100),
+  role VARCHAR(50),
+  phone VARCHAR(20),
+  shift_time VARCHAR(50)
+);
+
+CREATE TABLE Bookings (
+  booking_id INT AUTO_INCREMENT PRIMARY KEY,
+  guest_id INT,
+  room_id INT,
+  staff_id INT,
+  check_in DATE,
+  check_out DATE,
+  total_days INT,
+  number_of_rooms INT,
+  reviews TEXT,
+  FOREIGN KEY (guest_id) REFERENCES Guest(guest_id),
+  FOREIGN KEY (room_id) REFERENCES Rooms(room_id),
+  FOREIGN KEY (staff_id) REFERENCES Staff(staff_id)
+);
+
+CREATE TABLE Food_Items (
+  item_id INT AUTO_INCREMENT PRIMARY KEY,
+  item_name VARCHAR(100),
+  price DECIMAL(10,2)
+);
+
+CREATE TABLE Food_Orders (
+  order_id INT AUTO_INCREMENT PRIMARY KEY,
+  guest_id INT,
+  room_id INT,
+  item_ids VARCHAR(255),
+  number_of_items INT,
+  total_amount DECIMAL(10,2),
+  status VARCHAR(20),
+  FOREIGN KEY (guest_id) REFERENCES Guest(guest_id),
+  FOREIGN KEY (room_id) REFERENCES Rooms(room_id)
+);
+
+CREATE TABLE Payments (
+  payment_id INT AUTO_INCREMENT PRIMARY KEY,
+  booking_id INT,
+  order_id INT,
+  amount DECIMAL(10,2),
+  payment_date DATE,
+  payment_mode VARCHAR(50),
+  FOREIGN KEY (booking_id) REFERENCES Bookings(booking_id),
+  FOREIGN KEY (order_id) REFERENCES Food_Orders(order_id)
+);
+
+
+Values:-
+INSERT INTO GUEST (guest_id, name, address, phone, email, age, gender, membership) VALUES
+(1, 'John Doe', '123 Main St, Chennai', '9876543210', 'john@gmail.com', 28, 'Male', 'Gold'),
+(2, 'Priya Sharma', '45 MG Road, Delhi', '9988776655', 'priya@gmail.com', 32, 'Female', 'Silver'),
+(3, 'Amit Singh', '77 Brigade Road, Bangalore', '7894561230', 'amit@gmail.com', 40, 'Male', 'None');
+
+INSERT INTO ROOMS (room_id, room_type, price, status) VALUES
+(6000, 'Single', 1500.00, 'Available'),
+(6002, 'Double', 2500.00, 'Available'),
+(6003, 'Suite', 4000.00, 'Occupied');
+
+INSERT INTO STAFF (staff_id, staff_name, role, phone, shift_time) VALUES
+(8001, 'Raj Kumar', 'Receptionist', '9876543001', 'Morning'),
+(8002, 'Neha Verma', 'Housekeeping', '9876543002', 'Evening'),
+(8003, 'Suresh Reddy', 'Manager', '9876543003', 'Night');
+
+INSERT INTO BOOKINGS (booking_id, guest_id, room_id, staff_id, check_in, check_out, total_days, number_of_rooms, reviews, TotalAmount) VALUES
+(1001, 1, 6000, 8001, '2025-06-01', '2025-06-03', 2, 1, 'Very comfortable stay.', 3000.00),
+(1002, 2, 6002, 8002, '2025-06-02', '2025-06-05', 3, 1, 'Neat and clean room.', 7500.00),
+(1003, 3, 6003, 8003, '2025-06-04', '2025-06-06', 2, 1, 'Service was good.', 8000.00);
+
+INSERT INTO FOOD_ITEMS (item_id, item_name, price) VALUES
+(3001, 'Veg Sandwich', 120.00),
+(3002, 'Chicken Biryani', 250.00),
+(3003, 'Cold Coffee', 90.00),
+(3004, 'Paneer Tikka', 180.00),
+(3005, 'Fresh Lime Soda', 60.00);
+
+INSERT INTO FOOD_ORDERS (order_id, guest_id, room_id, item_ids, number_of_items, total_amount, status) VALUES
+(4001, 1, 6000, '3001,3003', 2, 210.00, 'Delivered'),
+(4002, 2, 6002, '3002', 1, 250.00, 'Delivered'),
+(4003, 3, 6003, '3004,3005', 2, 240.00, 'Pending');
+
+INSERT INTO PAYMENTS (payment_id, booking_id, order_id, amount, payment_date, payment_mode) VALUES
+(2001, 1001, NULL, 3000.00, '2025-06-01', 'Credit Card'),
+(2002, 1002, NULL, 7500.00, '2025-06-02', 'UPI'),
+(2003, 1003, NULL, 8000.00, '2025-06-04', 'Cash');
+
+
+
+
