@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Main {
-    static final String URL = "jdbc:mysql://hotelmanagement-udayankashyap.f.aivencloud.com:22906/defaultdb?ssl-mode=REQUIRED";
-    static final String USER = "avnadmin";
-    static final String PASS = "AVNS_YFhlY4aYO6IxYj_4Rdk";
+	static final String URL = "jdbc:mysql://localhost:3306/cognizant";
+    static final String USER = "root";
+    static final String PASS = "root";
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection(URL, USER, PASS);
@@ -33,11 +33,6 @@ public class Main {
          
             switch (choice) 
             {
-                case 0:
-                    // Test the database connection
-                    Database db = new Database();
-                    db.testDatabase(con);
-                    break;
                 case 1:
                     
                     break;
